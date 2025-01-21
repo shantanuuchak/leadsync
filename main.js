@@ -20,6 +20,12 @@ const csvData = Papa.parse(csvFile, {
 });
 
 csvData.data.forEach(async (row) => {
-  const data = await parse(row["Website URL"]);
-  console.log(row["Company Name"], { Info: data });
+  const { title, error } = await parse(row["Website URL"]);
+
+  if (error) {
+    console.log("failed", row["Company Name"]);
+    return;
+  }
+
+  console.log(title.toLowerCase().includes(row["Company Name"].toLowerCase()));
 });
