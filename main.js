@@ -1,5 +1,8 @@
 import fs from "fs";
 import Papa from "papaparse";
+import dotenv from "dotenv";
+dotenv.config();
+import Cloudflare from "cloudflare";
 import { parse } from "./lib/parse.js";
 
 import yargs from "yargs/yargs";
@@ -30,7 +33,31 @@ const csvData = Papa.parse(csvFile, {
 //   console.log(title.toLowerCase().includes(row["Company Name"].toLowerCase()));
 // });
 
-csvData.data.forEach(async (row) => {
-  const { info } = await parse(row["LinkedIn Profile URL"]);
-  console.log(info);
+async function run(model, input) {
+  const response = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/ai/run/${model}`,
+    {
+      headers: { Authorization: "Bearer {API_TOKEN}" },
+      method: "POST",
+      body: JSON.stringify(input),
+    }
+  );
+  const result = await response.json();
+  return result;
+}
+
+run("@cf/meta/llama-3-8b-instruct", {
+  messages: [
+    {
+      role: "system",
+      content: "You are a friendly assistan that helps write stories",
+    },
+    {
+      role: "user",
+      content:
+        "Write a short story about a llama that goes on a journey to find an orange cloud ",
+    },
+  ],
+}).then((response) => {
+  console.log(JSON.stringify(response));
 });
