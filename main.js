@@ -1,5 +1,6 @@
 import fs from "fs";
 import Papa from "papaparse";
+import axios from "axios";
 
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
@@ -18,4 +19,7 @@ const csvData = Papa.parse(csvFile, {
   skipEmptyLines: true,
 });
 
-console.log(csvData.meta.fields);
+csvData.data.forEach(async (row) => {
+  const data = await axios.get(row["Website URL"]);
+  console.log(data);
+});
