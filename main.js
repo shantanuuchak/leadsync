@@ -1,6 +1,6 @@
 import fs from "fs";
 import Papa from "papaparse";
-import axios from "axios";
+import { parse } from "./lib/parse.js";
 
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
@@ -20,6 +20,6 @@ const csvData = Papa.parse(csvFile, {
 });
 
 csvData.data.forEach(async (row) => {
-  const data = await axios.get(row["Website URL"]);
-  console.log(data);
+  const data = await parse(row["Website URL"]);
+  console.log(row["Company Name"], { Info: data });
 });
