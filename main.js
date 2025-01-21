@@ -19,13 +19,18 @@ const csvData = Papa.parse(csvFile, {
   skipEmptyLines: true,
 });
 
+// csvData.data.forEach(async (row) => {
+//   const { title, error } = await parse(row["Website URL"]);
+
+//   if (error) {
+//     console.log("failed", row["Company Name"]);
+//     return;
+//   }
+
+//   console.log(title.toLowerCase().includes(row["Company Name"].toLowerCase()));
+// });
+
 csvData.data.forEach(async (row) => {
-  const { title, error } = await parse(row["Website URL"]);
-
-  if (error) {
-    console.log("failed", row["Company Name"]);
-    return;
-  }
-
-  console.log(title.toLowerCase().includes(row["Company Name"].toLowerCase()));
+  const { info } = await parse(row["LinkedIn Profile URL"]);
+  console.log(info);
 });
