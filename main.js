@@ -1,4 +1,12 @@
-import { intro, outro, isCancel, cancel, text, log } from "@clack/prompts";
+import {
+  intro,
+  outro,
+  isCancel,
+  cancel,
+  text,
+  log,
+  spinner,
+} from "@clack/prompts";
 
 // Read CLI Arguments
 import yargs from "yargs/yargs";
@@ -8,17 +16,12 @@ const argv = yargs(hideBin(process.argv)).argv;
 import { readCSV, writeCSV } from "./lib/io.js";
 import service from "./lib/core.js";
 
-// This is responsible to start our program
+// Starting the main application
 async function main() {
-  // const csvData = readCSV(argv.input);
-  // const [clean, errors] = service(csvData.body);
-  // // Create the clean file
-  // writeCSV(argv.output, clean);
-  // // Generate report file
-  // writeCSV(argv.report, errors);
-
   // Read using interactive prompts
   intro(`Lead Sync App`);
+
+  const s = spinner();
 
   const input = await text({
     message: "What is your input file?",
@@ -50,10 +53,28 @@ async function main() {
     },
   });
 
+  // Check for cancel
   if (isCancel(input) || isCancel(output) || isCancel(report)) {
     cancel("Operation cancelled.");
     process.exit(1);
   }
+
+  s.start("Starting file validation...");
+
+  const csvData = readCSV(input);
+  const [clean, errors] = service(csvData.body);
+
+  // Create the clean file
+  writeCSV(output, clean);
+
+  // Generate report file
+  writeCSV(report, errors);
+
+  s.stop();
+
+  log.success(
+    `File validation completed. Check ${output} and ${report} for results.`
+  );
 
   outro(`You're all set!`);
 }
