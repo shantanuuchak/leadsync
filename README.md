@@ -2,7 +2,7 @@
 
 A robust CSV validation tool designed specifically for LinkedIn lead data. LeadSync automatically detects CSV headers and allows you to define validation rules for each field, ensuring your lead data meets your quality standards.
 
-![banner](./assets/image.webp)
+![banner](https://cdn.jsdelivr.net/gh/shantanuuchak/leadsync@main/assets/image.webp)
 
 ## Features
 
