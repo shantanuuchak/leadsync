@@ -11,6 +11,9 @@
     "CSV Validation",
     "Leads Sync"
   ],
+  "bin": {
+    "leadsync": "./main.js"
+  },
   "author": "@shantanuuchak",
   "license": "MIT",
   "description": "",
