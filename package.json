@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node main.js -i leads.csv -o final.csv --r errors.csv",
+    "start": "node main.js -i leads.csv -o final.csv -r errors.csv",
     "test": "vitest"
   },
   "keywords": [
