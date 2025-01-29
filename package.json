@@ -1,10 +1,10 @@
 {
   "name": "leadsync",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node main.js --input=leads.csv --output=final.csv --report=errors.csv",
+    "start": "node main.js -i leads.csv -o final.csv --r errors.csv",
     "test": "vitest"
   },
   "keywords": [
