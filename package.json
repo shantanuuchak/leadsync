@@ -1,8 +1,12 @@
 {
   "name": "leadsync",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/shantanuuchak/leadsync"
+  },
   "scripts": {
     "start": "node main.js -i leads.csv -o final.csv -r errors.csv",
     "test": "vitest"
@@ -16,7 +20,7 @@
   },
   "author": "@shantanuuchak",
   "license": "MIT",
-  "description": "",
+  "description": "A robust CSV validation tool designed specifically for LinkedIn lead data.",
   "dependencies": {
     "@clack/prompts": "^0.9.1",
     "papaparse": "^5.5.1",
